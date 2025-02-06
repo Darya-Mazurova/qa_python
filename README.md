@@ -38,12 +38,18 @@
 
 4.Тест проверяет что нельзя получить список по определенному жанру, если список пустой или жанр невалидный.
 Через параметризацию добавляем книги и пробуем получить по жанру список
+#####
+    Тест проверяет, что можно получить название книг по жанру.
+@pytest.mark.parametrize('name, genre', [['', 'Ужасы'], ['Снеговик', 'Детектив']])
+def test_get_books_with_specific_genre_title_of_the_book_by_genre(self, books_collector, name, genre):
+    books_collector.add_new_book(name)
+    assert books_collector.get_books_with_specific_genre('Детектив')== 'Снеговик'
 
-    @pytest.mark.parametrize('name, genre', [['', 'Ужасы'], ['Снеговик', 'Детектив']])
+@pytest.mark.parametrize('name, genre', [['Дракула', 'Ужасы'], ['Снеговик', 'Детектив']])
     def test_get_books_with_specific_genre_empty_list_book_false_genre(self, name, genre):
-        books_collector = BooksCollector()
+        
         books_collector.add_new_book(name)
-        assert not books_collector.get_books_with_specific_genre('Триллер')
+        assert not books_collector.get_books_with_specific_genre('Детектив')
 
 5.Тест проверяет что в список добавились все книги и что все они помещаются в словарь.
 Циклом добавляем книги, в переменную кладем рандомное название книги и проверяем.
@@ -59,7 +65,7 @@
                and type(books_collector.get_books_genre()) == dict
 
 6.Книги с возрастным рейтингом отсутствуют в списке книг для детей. Тест проверяет что книги с рейтингом жанров 18+ не попадают в список книг для детей. Циклом добавляем книги и задаем им жанры 18+, далее ассертим.
-
+#####
     def test_get_books_for_children_adult_rating(self):
         books_collector = BooksCollector()
         books = ['Витя Малеев в школе и дома', 'Путешествие Алисы']
@@ -97,11 +103,12 @@
 9.Тест проверяет метод который возвращает список избранных книг.
 Циклом добавляем книги в список, затем добавляем  всех в избранное.
 Ассертим получение списка.
-    def test_get_list_of_favorites_books_not_empty(self):
-        books_collector = BooksCollector()
+ #####   
+    def test_get_list_of_favorites_books_not_empty(self, books_collector):
+        
         books = ['1984', 'Игра Эндера', 'Вегетация']
         for name in books:
             books_collector.add_new_book(name)
             books_collector.add_book_in_favorites(name)
 
-        assert books_collector.get_list_of_favorites_books()
+        assert books_collector.get_list_of_favorites_books()== books
