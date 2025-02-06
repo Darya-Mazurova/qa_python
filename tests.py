@@ -27,25 +27,25 @@ class TestBooksCollector:
         ['Снеговик', 'Детективы'],
         ['Питер Пэн', 'Фантастика']
     ])
-    def test_set_book_genre_valid_name(self, books_collector, name, genre):
+    def test_set_book_genre_valid_name(self, name, genre):
         books_collector = BooksCollector()
         books_collector.add_new_book(name)
         books_collector.set_book_genre(name, genre)
         assert books_collector.books_genre[name] == genre
 
-    def test_get_book_genre_return_valid_name(self, books_collector):
+    def test_get_book_genre_return_valid_name(self):
         books_collector = BooksCollector()
         books_collector.add_new_book('Смешарики снимают кино')
         books_collector.set_book_genre('Смешарики снимают кино', 'Мультфильмы')
         assert books_collector.get_book_genre('Смешарики снимают кино') == 'Мультфильмы'
 
     @pytest.mark.parametrize('name, genre', [['', 'Ужасы'], ['Снеговик', 'Детектив']])
-    def test_get_books_with_specific_genre_empty_list_book_false_genre(self, books_collector, name, genre):
+    def test_get_books_with_specific_genre_empty_list_book_false_genre(self, name, genre):
         books_collector = BooksCollector()
         books_collector.add_new_book(name)
         assert not books_collector.get_books_with_specific_genre('Триллер')
 
-    def test_get_books_genre_filled_dict(self, books_collector):
+    def test_get_books_genre_filled_dict(self):
         books_collector = BooksCollector()
         books = ['Бесы', 'Другой дом', 'Двадцать тысяч лье под водой', 'Понаехавшая']
         for name in books:
@@ -55,7 +55,7 @@ class TestBooksCollector:
         assert random_book in books_collector.get_books_genre() \
                and type(books_collector.get_books_genre()) == dict
 
-    def test_get_books_for_children_adult_rating(self, books_collector):
+    def test_get_books_for_children_adult_rating(self):
         books_collector = BooksCollector()
         books = ['Витя Малеев в школе и дома', 'Путешествие Алисы']
         x = 0
@@ -66,7 +66,7 @@ class TestBooksCollector:
 
         assert not books_collector.get_books_for_children()
 
-    def test_add_book_in_favorites_when_books_in_list(self, books_collector):
+    def test_add_book_in_favorites_when_books_in_list(self):
         books_collector = BooksCollector()
         books = ['Семь способов засолки душ', 'Пожиратели призраков', 'Книга несчастных случаев', 'Лес']
         for name in books:
@@ -75,7 +75,7 @@ class TestBooksCollector:
 
         assert 'Книга несчастных случаев' in books_collector.favorites
 
-    def test_delete_book_from_favorites(self, books_collector):
+    def test_delete_book_from_favorites(self):
         books_collector = BooksCollector()
         books = ['Море сновидений', 'Через пески', 'Старплекс']
         for name in books:
@@ -85,7 +85,7 @@ class TestBooksCollector:
         books_collector.delete_book_from_favorites('Через пески')
         assert 'Через пески' not in books_collector.favorites
 
-    def test_get_list_of_favorites_books_not_empty(self, books_collector):
+    def test_get_list_of_favorites_books_not_empty(self):
         books_collector = BooksCollector()
         books = ['1984', 'Игра Эндера', 'Вегетация']
         for name in books:

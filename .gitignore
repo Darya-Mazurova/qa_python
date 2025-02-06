@@ -1,11 +1,5 @@
 # игнорignor IDE
-.idea/.gitignore
-
-.idea/misc.xml
-.idea/modules.xml
-.idea/qa_python.iml
-.idea/vcs.xml
-
+.idea
 # ignor.pyc 
 __pycache__/conftest.cpython-313-pytest-8.3.4.pyc
 __pycache__/main.cpython-313.pyc
