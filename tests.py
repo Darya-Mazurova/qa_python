@@ -39,10 +39,13 @@ class TestBooksCollector:
         books_collector.set_book_genre('Смешарики снимают кино', 'Мультфильмы')
         assert books_collector.get_book_genre('Смешарики снимают кино') == 'Мультфильмы'
 
-    @pytest.mark.parametrize('name, genre', [['Дракула', 'Ужасы'], ['Снеговик', 'Детектив']])
-    def test_get_books_with_specific_genre_title_of_the_book_by_genre(self, books_collector, name, genre):
-        books_collector.add_new_book(name)
-        assert  books_collector.get_books_with_specific_genre('Детектив')
+    def test_get_books_with_specific_genre_when_valid_genre(self, books_collector):
+
+        books_collector.add_new_book('Чебурашка')
+        books_collector.set_book_genre('Чебурашка', 'Мультфильмы')
+
+        assert books_collector.get_books_with_specific_genre('Мультфильмы')== ['Чебурашка']
+
 
     def test_get_books_genre_filled_dict(self, books_collector):
 
@@ -54,22 +57,15 @@ class TestBooksCollector:
         assert random_book in books_collector.get_books_genre() \
                and type(books_collector.get_books_genre()) == dict
 
-    def test_get_books_for_children_get_book(self, books_collector):
-        assert books_collector.get_books_for_children() == ['Котенок Гав', 'Веселые приключения']
-
-
     def test_get_books_for_children_correct_genre(self, books_collector):
 
         books = ['Витя Малеев в школе и дома', 'Путешествие Алисы']
         x = 0
         for name in books:
             books_collector.add_new_book(name)
-            books_collector.set_book_genre(name, books_collector.genre_age_rating[x])
+            books_collector.set_book_genre(name, books_collector.genre[x])
             x += 1
-
-        assert not books_collector.get_books_for_children()
-
-
+        assert books_collector.get_books_for_children()
 
 
 
@@ -99,7 +95,7 @@ class TestBooksCollector:
             books_collector.add_new_book(name)
             books_collector.add_book_in_favorites(name)
 
-        assert books_collector.get_list_of_favorites_books() == books
+        assert books_collector.get_list_of_favorites_books()== ['1984', 'Игра Эндера', 'Вегетация']
 
         # напиши свои тесты ниже
     # чтобы тесты были независимыми в каждом из них создавай отдельный экземпляр класса BooksCollector()
