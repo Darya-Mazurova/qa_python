@@ -55,15 +55,11 @@
 
 6. Тест проверяет, что метод возвращает список книг для детей.
 
-        def test_get_books_for_children_correct_genre(self, books_collector):
+   def test_get_books_for_children_the_book_is_on_the_list(self, books_collector):
 
-        books = ['Витя Малеев в школе и дома', 'Путешествие Алисы']
-        x = 0
-        for name in books:
-            books_collector.add_new_book(name)
-            books_collector.set_book_genre(name, books_collector.genre[x])
-            x += 1
-        assert books_collector.get_books_for_children() == ['Витя Малеев в школе и дома', 'Путешествие Алисы']
+        books_collector.add_new_book('Гарри Поттери и кубок огня')
+        books_collector.set_book_genre('Гарри Поттери и кубок огня', 'Фантастика')
+        assert books_collector.get_books_for_children() == ['Гарри Поттери и кубок огня']
 
 7.Тест проверяет что книга добавленная в избранное есть в избранном. Циклом добавляем книги в список, затем добавляем одну книгу по названию в избранное
 
